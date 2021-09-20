@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pantone_yellow">#FBDD04</color>
+    <color name="golden_poppy">#FCC201</color>
+    <color name="picton_blue">#51B7E7</color>
+    <color name="royal_blue">#002366</color>
 </resources>
