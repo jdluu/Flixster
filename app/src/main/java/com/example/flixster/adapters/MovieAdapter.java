@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.flixster.DetailActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
@@ -23,10 +24,14 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     Context context;
     List<Movie> movies;
+    int radius = 30;    //corner radius, higher value = more rounded
+    int margin = 10;    // crop margin, set to 0 for corners with no crop
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -40,7 +45,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         Log.d("MovieAdapter", "onCreateViewHolder");
         View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
         return new ViewHolder(movieView);
-    }
+    } 
 
     // Involves populating data into the item through holder
     @Override
@@ -58,6 +63,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public int getItemCount() {
         return movies.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -89,11 +95,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 imageUrl = movie.getPosterPath();
             }
 
-            Glide.with(context)
-                    .load(imageUrl)
-                    .placeholder(R.drawable.placeholder)
-                    .into(ivPoster);
+            Glide.with(context).
+                    load(R.drawable.ic_baseline_cloud_download_24).
+                    placeholder(R.drawable.ic_baseline_cloud_download_24).
+                    into(ivPoster);
 
+            Glide.with(context).load(imageUrl).into(ivPoster);
             // 1. Register click listener on the whole row
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +111,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     context.startActivity(i);
                 }
             });
+
 
         }
     }
